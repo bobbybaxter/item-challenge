@@ -6,7 +6,7 @@
  */
 
 import { randomUUID } from 'crypto';
-import { ExamItem, CreateItemRequest, UpdateItemRequest, ListItemsQuery } from '../types/item.js';
+import { CreateItemRequest, ExamItem, ListItemsQuery, UpdateItemRequest } from '../types/item.js';
 import { ItemStorage } from './interface.js';
 
 export class MemoryStorage implements ItemStorage {
@@ -67,12 +67,12 @@ export class MemoryStorage implements ItemStorage {
 
     // Filter by subject
     if (query.subject) {
-      items = items.filter(item => item.subject === query.subject);
+      items = items.filter((item) => item.subject === query.subject);
     }
 
     // Filter by status
     if (query.status) {
-      items = items.filter(item => item.metadata.status === query.status);
+      items = items.filter((item) => item.metadata.status === query.status);
     }
 
     const total = items.length;
