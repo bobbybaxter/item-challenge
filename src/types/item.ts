@@ -2,6 +2,8 @@
  * Exam Item Types
  */
 
+export type { CreateItemRequest } from "./validation.js";
+
 export interface ExamItem {
   id: string;
   subject: string; // e.g., "AP Biology", "AP Calculus"
@@ -22,24 +24,6 @@ export interface ExamItem {
     tags: string[];
   };
   securityLevel: string; // "standard", "secure", "highly-secure"
-}
-
-export interface CreateItemRequest {
-  subject: string;
-  itemType: string;
-  difficulty: number;
-  content: {
-    question: string;
-    options?: string[];
-    correctAnswer: string;
-    explanation: string;
-  };
-  metadata: {
-    author: string;
-    status: string;
-    tags: string[];
-  };
-  securityLevel: string;
 }
 
 export interface UpdateItemRequest {
