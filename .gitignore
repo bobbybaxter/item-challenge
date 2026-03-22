@@ -26,6 +26,10 @@ cdk.out/
 .DS_Store
 Thumbs.db
 
+# Terraform generated
+terraform/.terraform/
+terraform/lambda_placeholder.zip
+
 # Logs
 *.log
 npm-debug.log*

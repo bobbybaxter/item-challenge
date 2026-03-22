@@ -5,14 +5,9 @@
  * Data is lost when the server restarts.
  */
 
-import { randomUUID } from "crypto";
-import {
-  CreateItemRequest,
-  ExamItem,
-  ListItemsQuery,
-  UpdateItemRequest,
-} from "../types/item.js";
-import { ItemStorage } from "./interface.js";
+import { randomUUID } from 'crypto';
+import { CreateItemRequest, ExamItem, ListItemsQuery, UpdateItemRequest } from '../types/item.js';
+import { ItemStorage } from './interface.js';
 
 export class MemoryStorage implements ItemStorage {
   private items: Map<string, ExamItem> = new Map();
@@ -41,19 +36,14 @@ export class MemoryStorage implements ItemStorage {
     return this.items.get(id) || null;
   }
 
-  async updateItem(
-    id: string,
-    data: UpdateItemRequest,
-  ): Promise<ExamItem | null> {
+  async updateItem(id: string, data: UpdateItemRequest): Promise<ExamItem | null> {
     const item = this.items.get(id);
     if (!item) return null;
 
     const updated: ExamItem = {
       ...item,
       ...data,
-      content: data.content
-        ? { ...item.content, ...data.content }
-        : item.content,
+      content: data.content ? { ...item.content, ...data.content } : item.content,
       metadata: {
         ...item.metadata,
         ...(data.metadata || {}),
@@ -72,9 +62,7 @@ export class MemoryStorage implements ItemStorage {
     return updated;
   }
 
-  async listItems(
-    query: ListItemsQuery,
-  ): Promise<{ items: ExamItem[]; total: number }> {
+  async listItems(query: ListItemsQuery): Promise<{ items: ExamItem[]; total: number }> {
     let items = Array.from(this.items.values());
 
     // Filter by subject

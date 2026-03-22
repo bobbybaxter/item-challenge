@@ -2,7 +2,7 @@
  * Exam Item Types
  */
 
-export type { CreateItemRequest } from "./validation.js";
+export type { CreateItemRequest } from './validation.js';
 
 export interface ExamItem {
   id: string;
@@ -30,8 +30,8 @@ export interface UpdateItemRequest {
   subject?: string;
   itemType?: string;
   difficulty?: number;
-  content?: Partial<ExamItem["content"]>;
-  metadata?: Partial<ExamItem["metadata"]>;
+  content?: Partial<ExamItem['content']>;
+  metadata?: Partial<ExamItem['metadata']>;
   securityLevel?: string;
 }
 

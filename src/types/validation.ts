@@ -1,10 +1,10 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const idSchema = z.string().min(1).max(255);
 
 export const createItemSchema = z.object({
   subject: z.string().min(1).max(255),
-  itemType: z.enum(["multiple-choice", "free-response", "essay"]),
+  itemType: z.enum(['multiple-choice', 'free-response', 'essay']),
   difficulty: z.number().min(1).max(5),
   content: z.object({
     question: z.string().min(1),
@@ -14,10 +14,10 @@ export const createItemSchema = z.object({
   }),
   metadata: z.object({
     author: z.string().min(1).max(255),
-    status: z.enum(["draft", "review", "approved", "archived"]),
+    status: z.enum(['draft', 'review', 'approved', 'archived']),
     tags: z.array(z.string()).min(1).max(255),
   }),
-  securityLevel: z.enum(["standard", "secure", "highly-secure"]),
+  securityLevel: z.enum(['standard', 'secure', 'highly-secure']),
 });
 
 export type CreateItemRequest = z.infer<typeof createItemSchema>;

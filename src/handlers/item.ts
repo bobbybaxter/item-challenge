@@ -5,10 +5,10 @@
  * You can use this as a template for implementing the required endpoints.
  */
 
-import { validateInput } from "../middleware/validation.js";
-import { createStorage } from "../storage/index.js";
-import { CreateItemRequest } from "../types/item.js";
-import { createItemSchema, idSchema } from "../types/validation.js";
+import { validateInput } from '../middleware/validation.js';
+import { createStorage } from '../storage/index.js';
+import { CreateItemRequest } from '../types/item.js';
+import { createItemSchema, idSchema } from '../types/validation.js';
 
 const storage = createStorage();
 
@@ -20,7 +20,11 @@ export async function getAllItemsHandler() {
       body: items,
     };
   } catch (error) {
-    console.error("Error getting all items:", error);
+    console.error('Error getting all items:', error);
+    return {
+      statusCode: 500,
+      body: { error: 'Internal server error' },
+    };
   }
 }
 
@@ -32,7 +36,7 @@ export async function getItemHandler(id: string) {
     if (!item) {
       return {
         statusCode: 404,
-        body: { error: "Item not found" },
+        body: { error: 'Item not found' },
       };
     }
 
@@ -41,20 +45,17 @@ export async function getItemHandler(id: string) {
       body: item,
     };
   } catch (error) {
-    console.error("Error getting item:", error);
+    console.error('Error getting item:', error);
     return {
       statusCode: 500,
-      body: { error: "Internal server error" },
+      body: { error: 'Internal server error' },
     };
   }
 }
 
 export async function createItemHandler(data: CreateItemRequest) {
   try {
-    const validatedData = validateInput<CreateItemRequest>(
-      createItemSchema,
-      data,
-    );
+    const validatedData = validateInput<CreateItemRequest>(createItemSchema, data);
     const item = await storage.createItem(validatedData);
 
     return {
@@ -62,7 +63,7 @@ export async function createItemHandler(data: CreateItemRequest) {
       body: item,
     };
   } catch (error) {
-    if (error instanceof Error && error.message === "Invalid input") {
+    if (error instanceof Error && error.message === 'Invalid input') {
       return {
         statusCode: 400,
         body: { error: error.message },
@@ -71,7 +72,7 @@ export async function createItemHandler(data: CreateItemRequest) {
 
     return {
       statusCode: 500,
-      body: { error: "Internal server error" },
+      body: { error: 'Internal server error' },
     };
   }
 }
